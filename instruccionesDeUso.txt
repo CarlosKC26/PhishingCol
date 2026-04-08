@@ -1,0 +1,62 @@
+Para correr el programa por primera vez:
+
+1. Dirigirse a la ruta raíz del proyecto:
+
+    cd ruta\al\proyecto\Listas Dominios
+
+2. Crear un entorno virtual (solo la primera vez):
+
+    python -m venv .venv
+
+3. Activar el entorno virtual:
+
+    .venv\Scripts\activate
+
+4. Instalar dependencias desde requirements.txt:
+
+    pip install -r requirements.txt
+
+5. Poner las listas de dominios en la carpeta ./listas/
+    - los formatos validos son txt y zip
+    - cada linea dentro del txt debe ser un dominio (formato de whois 2025)
+    - los zips deben contener solo archivos con extensión txt (pueden contener otro tipo de extensión en los archivos pero no se tendran en cuenta en el archivo final)
+
+6. Ejecutar el archivo principal:
+
+    py main.py
+
+
+Para correr el programa normalmente (cuando ya está configurado):
+
+1. Dirigirse a la ruta raíz del proyecto:
+
+    cd ruta\al\proyecto\Listas Dominios
+
+2. Activar el entorno virtual:
+
+    .venv\Scripts\activate
+
+3. Poner las listas de dominios en la carpeta ./listas/
+    - los formatos validos son txt y zip
+    - cada linea dentro del txt debe ser un dominio (formato de whois 2025)
+    - los zips deben contener solo archivos con extensión txt (pueden contener otro tipo de extensión en los archivos pero no se tendran en cuenta en el archivo final)
+
+4. Ejecutar el archivo principal:
+
+    py main.py
+
+
+Para desactivar el entorno virtual:
+
+    deactivate
+
+
+Para actualizar dependencias cuando se agreguen nuevas al requirements.txt:
+
+1. Activar el entorno virtual:
+
+    .venv\Scripts\activate
+
+2. Instalar/actualizar dependencias:
+
+    pip install -r requirements.txt

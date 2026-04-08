@@ -1,0 +1,24 @@
+{
+  "total": {
+    "techo" : 280,
+    "piso" : 105,
+    "minimo_fuzzy" : 80
+  },
+  "fuzzy_score": {
+    "peso_maximo": 160
+  },
+  "palabras": {
+    "clave": {
+      "peso_unitario": 25
+    },
+    "secundaria": {
+      "peso_unitario": 10
+    },
+    "relacionada": {
+      "peso_unitario": 4
+    }
+  },
+  "regex": {
+    "peso_unitario": 63
+  }
+}

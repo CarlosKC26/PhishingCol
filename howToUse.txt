@@ -1,0 +1,62 @@
+To run the program for the first time:
+
+1. Go to the project's root directory:
+
+    cd path\to\project\Listas Dominios
+
+2. Create a virtual environment (only the first time):
+
+    python -m venv .venv
+
+3. Activate the virtual environment:
+
+    .venv\Scripts\activate
+
+4. Install dependencies from requirements.txt:
+
+    pip install -r requirements.txt
+
+5. Place the domain lists in the ./listas/ folder:
+    - Valid formats are txt and zip
+    - Each line inside the txt file must be a domain (WHOIS 2025 format)
+    - Zip files must contain only files with a .txt extension (they may contain other file types, but those will not be considered in the final file)
+
+6. Run the main file:
+
+    py main.py
+
+
+To run the program normally (when it is already set up):
+
+1. Go to the project's root directory:
+
+    cd path\to\project\Listas Dominios
+
+2. Activate the virtual environment:
+
+    .venv\Scripts\activate
+
+3. Place the domain lists in the ./listas/ folder:
+    - Valid formats are txt and zip
+    - Each line inside the txt file must be a domain (WHOIS 2025 format)
+    - Zip files must contain only files with a .txt extension (they may contain other file types, but those will not be considered in the final file)
+
+4. Run the main file:
+
+    py main.py
+
+
+To deactivate the virtual environment:
+
+    deactivate
+
+
+To update dependencies when new ones are added to requirements.txt:
+
+1. Activate the virtual environment:
+
+    .venv\Scripts\activate
+
+2. Install/update dependencies:
+
+    pip install -r requirements.txt
