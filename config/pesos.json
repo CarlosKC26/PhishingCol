@@ -1,0 +1,141 @@
+{
+  "analysis_timeout_seconds": 10,
+  "content_timeout_seconds": 2,
+  "thresholds": {
+    "medium": 40,
+    "high": 70,
+    "unknown_on_errors": true
+  },
+  "alert_threshold": 70,
+  "anomalous_length_threshold": 32,
+  "deceptive_subdomain_threshold": 2,
+  "compound_tlds": [
+    "com.co",
+    "gov.co",
+    "edu.co",
+    "org.co",
+    "net.co",
+    "com.mx",
+    "com.pe",
+    "com.py"
+  ],
+  "suspicious_tlds": [
+    "xyz",
+    "top",
+    "site",
+    "online",
+    "click",
+    "icu",
+    "monster",
+    "info",
+    "ru",
+    "cn"
+  ],
+  "social_engineering_keywords": [
+    "seguridad",
+    "verificacion",
+    "verificar",
+    "actualizar",
+    "actualizacion",
+    "bloqueo",
+    "urgente",
+    "soporte",
+    "login",
+    "clave",
+    "validacion",
+    "pago"
+  ],
+  "rules": [
+    {
+      "rule_id": "RN-04",
+      "name": "typosquatting_detected",
+      "condition": "typosquatting_detected",
+      "weight": 30,
+      "enabled": true,
+      "description": "Detecta variaciones mínimas frente a dominios oficiales.",
+      "references": [
+        "RN-04",
+        "RF7",
+        "RNF27"
+      ]
+    },
+    {
+      "rule_id": "RN-05",
+      "name": "brand_keyword_detected",
+      "condition": "brand_keyword_detected",
+      "weight": 18,
+      "enabled": true,
+      "description": "Detecta palabras clave principales de marca dentro de la URL.",
+      "references": [
+        "RN-05",
+        "RF8",
+        "RNF26"
+      ]
+    },
+    {
+      "rule_id": "RN-07",
+      "name": "social_engineering_detected",
+      "condition": "social_engineering_detected",
+      "weight": 12,
+      "enabled": true,
+      "description": "Detecta términos que inducen urgencia o confianza.",
+      "references": [
+        "RN-07",
+        "RF10",
+        "RNF26"
+      ]
+    },
+    {
+      "rule_id": "RN-10",
+      "name": "suspicious_tld_detected",
+      "condition": "suspicious_tld_detected",
+      "weight": 14,
+      "enabled": true,
+      "description": "Detecta TLD inusual o distinto al esperado para la marca.",
+      "references": [
+        "RN-10",
+        "RF11",
+        "RNF23"
+      ]
+    },
+    {
+      "rule_id": "RN-08",
+      "name": "deceptive_subdomain_detected",
+      "condition": "deceptive_subdomain_detected",
+      "weight": 16,
+      "enabled": true,
+      "description": "Detecta subdominios engañosos o excesivos.",
+      "references": [
+        "RN-08",
+        "RF9",
+        "RNF27"
+      ]
+    },
+    {
+      "rule_id": "RN-09",
+      "name": "anomalous_length_detected",
+      "condition": "anomalous_length_detected",
+      "weight": 10,
+      "enabled": true,
+      "description": "Detecta longitud anómala del dominio.",
+      "references": [
+        "RN-09",
+        "RF10",
+        "RNF27"
+      ]
+    },
+    {
+      "rule_id": "RN-11",
+      "name": "content_brand_detected",
+      "condition": "content_brand_detected",
+      "weight": 10,
+      "enabled": true,
+      "description": "Refuerza el riesgo cuando el contenido estático menciona marcas.",
+      "references": [
+        "RN-11",
+        "RF12",
+        "RNF11"
+      ]
+    }
+  ]
+}

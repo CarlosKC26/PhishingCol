@@ -1,0 +1,132 @@
+{
+  "version": "3.0",
+  "brands": [
+    {
+      "brand_id": "bancolombia",
+      "display_name": "Bancolombia",
+      "sector": "banca",
+      "official_domains": [
+        "bancolombia.com",
+        "bancolombia.com.co"
+      ],
+      "official_tlds": [
+        "com",
+        "com.co"
+      ],
+      "primary_keywords": [
+        "bancolombia",
+        "banco"
+      ],
+      "secondary_keywords": [
+        "personas",
+        "sucursal",
+        "clave",
+        "token"
+      ],
+      "related_keywords": [
+        "pagos",
+        "transferencias",
+        "cuenta",
+        "seguridad"
+      ],
+      "typosquatting_variants": [
+        "banc0lombia",
+        "bancolombiia",
+        "bancol0mbia"
+      ]
+    },
+    {
+      "brand_id": "davivienda",
+      "display_name": "Davivienda",
+      "sector": "banca",
+      "official_domains": [
+        "davivienda.com",
+        "davivienda.com.co"
+      ],
+      "official_tlds": [
+        "com",
+        "com.co"
+      ],
+      "primary_keywords": [
+        "davivienda"
+      ],
+      "secondary_keywords": [
+        "rojo",
+        "clave",
+        "token",
+        "ingreso"
+      ],
+      "related_keywords": [
+        "cuenta",
+        "transferencia",
+        "pagos"
+      ],
+      "typosquatting_variants": [
+        "daviviendaa",
+        "daviivienda",
+        "dav1vienda"
+      ]
+    },
+    {
+      "brand_id": "nequi",
+      "display_name": "Nequi",
+      "sector": "fintech",
+      "official_domains": [
+        "nequi.com.co"
+      ],
+      "official_tlds": [
+        "com.co"
+      ],
+      "primary_keywords": [
+        "nequi"
+      ],
+      "secondary_keywords": [
+        "app",
+        "clave",
+        "codigo"
+      ],
+      "related_keywords": [
+        "saldo",
+        "recarga",
+        "transferencia",
+        "retiro"
+      ],
+      "typosquatting_variants": [
+        "neqi",
+        "nequii",
+        "nequ1"
+      ]
+    },
+    {
+      "brand_id": "alkosto",
+      "display_name": "Alkosto",
+      "sector": "retail",
+      "official_domains": [
+        "alkosto.com",
+        "alkosto.com.co"
+      ],
+      "official_tlds": [
+        "com",
+        "com.co"
+      ],
+      "primary_keywords": [
+        "alkosto"
+      ],
+      "secondary_keywords": [
+        "ofertas",
+        "compras",
+        "tienda"
+      ],
+      "related_keywords": [
+        "electrodomesticos",
+        "tecnologia",
+        "hiperahorro"
+      ],
+      "typosquatting_variants": [
+        "alk0sto",
+        "alkostto",
+        "a1kosto"
+      ]
+    }
+  ]
+}

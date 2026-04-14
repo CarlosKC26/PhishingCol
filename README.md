@@ -1,37 +1,48 @@
-# Lista de Dominios
+# PhishingCol
 
-Proyecto para gestionar listas de dominios sospechosos y consolidar información.
+Sistema determinístico y explicable para detección de phishing basado en URLs y dominios en el contexto colombiano. La implementación respeta la arquitectura modular por capas definida en la Entrega 2 y mantiene reglas y pesos fuera del core en archivos JSON.
 
 ## Estructura
 
-- `core.py` - funciones principales del proyecto
-- `main.py` - punto de entrada principal
-- `unificarListas.py` - script para consolidar listas
-- `dominiosSospechosos/` - datos de dominios sospechosos
-- `listas/` - archivos de listas de dominios
-- `requirements.txt` - dependencias de Python
+- `presentation/`: `InputHandler` y `CLIController`.
+- `application/`: orquestación de análisis manual, batch, reportes y alertas.
+- `domain/`: extracción de features, scoring, clasificación y explicación.
+- `infrastructure/`: acceso a configuración, persistencia mock, reportes, logging y análisis HTTP estático.
+- `config/`: `empresas.json` y `pesos.json`.
+- `tests/`: pruebas unitarias e integración.
+- `main.py`: punto de entrada.
 
-## Uso
+## Ejecución
 
-1. Crear un entorno virtual:
-   ```bash
-   python -m venv .venv
-   .venv\Scripts\activate
-   ```
+1. Crear y activar un entorno virtual.
 2. Instalar dependencias:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Ejecutar el script principal:
-   ```bash
-   python main.py
-   ```
-
-## GitHub
-
-Este repositorio puede conectarse a GitHub usando:
 
 ```bash
-git remote add origin <url-del-repositorio>
-git push -u origin main
+pip install -r requirements.txt
 ```
+
+3. Ejecutar análisis manual:
+
+```bash
+python main.py banc0lombia-seguridad.xyz
+```
+
+4. Ejecutar monitoreo batch:
+
+```bash
+python main.py --batch listas/2026-01-31.txt --output-dir output
+```
+
+5. Ejecutar pruebas:
+
+```bash
+pytest
+```
+
+## Restricciones implementadas
+
+- Solo analiza URLs y dominios.
+- Motor determinístico basado en reglas configurables.
+- Análisis de contenido opcional, con timeout de 2 segundos y sin JavaScript.
+- Manejo de errores con resultados parciales y mensajes controlados.
+- Trazabilidad completa: score, reglas activadas, evidencia y limitaciones.

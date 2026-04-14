@@ -1,135 +1,79 @@
-from core import cargar_configuracion_empresas, cargar_pesos, analizar_dominio
-import pandas as pd # type: ignore
-from concurrent.futures import ProcessPoolExecutor
+from __future__ import annotations
+
 import sys
-from datetime import datetime
-import os
-from unificarListas import descomprimir_zips, unificar_txt
+from pathlib import Path
 
-def leer_dominios(path_txt):
-    try:
-        with open(path_txt, "r", encoding="utf-8") as f:
-            return [line.strip() for line in f if line.strip()]
-    except FileNotFoundError:
-        print(f"[ERROR] No se encontró el archivo: {path_txt}")
-    except PermissionError:
-        print(f"[ERROR] Permiso denegado al intentar leer el archivo: {path_txt}")
-    except Exception as e:
-        print(f"[ERROR] Ocurrió un problema al leer el archivo '{path_txt}': {e}")
-    return []
-
-
-def calcular_porcentaje(score_total, techo=280):
-    try:
-        if score_total >= techo:
-            return 100.0
-        else:
-            return round(((score_total / techo) * 60) + 40, 2)
-    except ZeroDivisionError:
-        print("[ERROR] El valor de 'techo' no puede ser cero.")
-        return 0.0
-    except Exception as e:
-        print(f"[ERROR] No se pudo calcular el porcentaje: {e}")
-        return 0.0
+from application.alert_service import AlertService
+from application.analysis_service import AnalysisService
+from application.batch_monitor_service import BatchMonitorService
+from application.brand_catalog_service import BrandCatalogService
+from application.report_service import ReportService
+from domain.explanation_builder import ExplanationBuilder
+from domain.feature_extractor import FeatureExtractor
+from domain.risk_classifier import RiskClassifier
+from domain.scoring_engine import ScoringEngine
+from domain.url_domain_analyzer import URLDomainAnalyzer
+from infrastructure.alert_publisher import InMemoryAlertPublisher
+from infrastructure.catalog_provider_json import JSONCatalogProvider
+from infrastructure.config_provider import ConfigProvider
+from infrastructure.content_fetcher import StaticContentFetcher
+from infrastructure.list_consolidator import ListConsolidator
+from infrastructure.logging_monitoring import LoggingMonitoring
+from infrastructure.report_writer import FileReportWriter
+from infrastructure.result_repository import MockResultRepository
+from infrastructure.zip_extractor import ZipExtractor
+from presentation.cli_controller import CLIController
+from presentation.input_handler import InputHandler
 
 
-def print_progress_bar(iteration, total, length=40):
-    try:
-        percent = 100 * (iteration / float(total))
-        filled_length = int(length * iteration // total)
-        bar = '=' * filled_length + '-' * (length - filled_length)
-        sys.stdout.write(f'\rProgreso: |{bar}| {percent:.1f}% ({iteration}/{total})')
-        sys.stdout.flush()
-        if iteration == total:
-            print()
-    except Exception as e:
-        print(f"[ERROR] No se pudo actualizar la barra de progreso: {e}")
+def build_cli_controller(base_path: Path | None = None) -> CLIController:
+    root_path = base_path or Path(__file__).resolve().parent
+    config_provider = ConfigProvider(base_path=root_path)
+    scoring_config = config_provider.load_scoring_config()
+    input_handler = InputHandler(
+        analysis_timeout_seconds=float(scoring_config["analysis_timeout_seconds"]),
+        content_timeout_seconds=float(scoring_config["content_timeout_seconds"]),
+    )
+
+    logger = LoggingMonitoring(log_dir=root_path / "logs")
+    catalog_provider = JSONCatalogProvider(config_provider)
+    brand_catalog_service = BrandCatalogService(catalog_provider)
+    feature_extractor = FeatureExtractor(scoring_config)
+    url_domain_analyzer = URLDomainAnalyzer(feature_extractor, StaticContentFetcher())
+    scoring_engine = ScoringEngine(scoring_config["rules"])
+    risk_classifier = RiskClassifier(scoring_config["thresholds"])
+    explanation_builder = ExplanationBuilder()
+    result_repository = MockResultRepository(root_path / "output" / "results.json")
+    analysis_service = AnalysisService(
+        brand_catalog_service=brand_catalog_service,
+        url_domain_analyzer=url_domain_analyzer,
+        scoring_engine=scoring_engine,
+        risk_classifier=risk_classifier,
+        explanation_builder=explanation_builder,
+        result_repository=result_repository,
+        logger=logger,
+    )
+    report_service = ReportService(FileReportWriter())
+    alert_service = AlertService(
+        alert_threshold=int(scoring_config["alert_threshold"]),
+        publisher=InMemoryAlertPublisher(),
+    )
+    batch_monitor_service = BatchMonitorService(
+        input_handler=input_handler,
+        analysis_service=analysis_service,
+        report_service=report_service,
+        alert_service=alert_service,
+        zip_extractor=ZipExtractor(),
+        list_consolidator=ListConsolidator(),
+        logger=logger,
+    )
+    return CLIController(input_handler, analysis_service, batch_monitor_service)
 
 
-def ejecutar_analisis(path_txt="dominios_sospechosos.txt", salida_excel="resultados_fraude.xlsx"):
-    try:
-        inicio = datetime.now()
-        print(f"Inicio de ejecución: {inicio.strftime('%Y-%m-%d %H:%M:%S')}")
-
-        config_empresas = cargar_configuracion_empresas()
-        pesos = cargar_pesos()
-        dominios = leer_dominios(path_txt)
-
-        if not dominios:
-            print("[ADVERTENCIA] No se encontraron dominios para analizar.")
-            return
-
-        resultados_por_empresa = {empresa: [] for empresa in config_empresas.keys()}
-        total = len(dominios)
-        processed = 0
-
-        for dominio in dominios:
-            try:
-                resultados = analizar_dominio(dominio, config_empresas, pesos)
-                processed += 1
-                print_progress_bar(processed, total)
-
-                for r in resultados:
-                    if r["score_total"] > pesos["total"]["piso"]:
-                        r["porcentaje"] = calcular_porcentaje(r["score_total"])
-                        resultados_por_empresa[r["empresa"]].append(r)
-            except Exception as e:
-                print(f"[ERROR] No se pudo procesar el dominio '{dominio}': {e}")
-
-        try:
-            with pd.ExcelWriter(salida_excel, engine="openpyxl") as writer:
-                for empresa, resultados in resultados_por_empresa.items():
-                    if resultados:
-                        for r in resultados:
-                            r["porcentaje"] = round(r["porcentaje"], 2)
-                            r["score_total"] = round(r["score_total"], 2)
-                            r["score_fuzzy"] = round(r["score_fuzzy"], 2)
-                            r["score_claves"] = round(r["score_claves"], 2)
-                            r["score_secundarias"] = round(r["score_secundarias"], 2)
-                            r["score_relacionadas"] = round(r["score_relacionadas"], 2)
-                            r["score_regex"] = round(r["score_regex"], 2)
-                        df = pd.DataFrame(resultados)
-                        df = df[[
-                            "dominio",
-                            "porcentaje",
-                            "score_total",
-                            "score_fuzzy",
-                            "score_claves",
-                            "score_secundarias",
-                            "score_relacionadas",
-                            "score_regex"
-                        ]]
-                        df = df.sort_values(by="porcentaje", ascending=False)
-                        df.to_excel(writer, sheet_name=empresa, index=False)
-        except PermissionError:
-            print(f"[ERROR] No se pudo escribir el archivo Excel. Verifique permisos: {salida_excel}")
-        except Exception as e:
-            print(f"[ERROR] No se pudo guardar el archivo Excel '{salida_excel}': {e}")
-
-        fin = datetime.now()
-        print(f"\nFin de ejecución: {fin.strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"Tiempo total transcurrido: {str(fin - inicio)}")
-
-    except Exception as e:
-        print(f"[ERROR] Error inesperado durante la ejecución del análisis: {e}")
+def main(argv: list[str] | None = None) -> int:
+    controller = build_cli_controller()
+    return controller.run(argv)
 
 
 if __name__ == "__main__":
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    carpeta_salida = os.path.join(os.getcwd(), "dominiosSospechosos")
-    os.makedirs(carpeta_salida, exist_ok=True)
-    
-    # Nombres de archivos con timestamp
-    nombreListaDominiosUnificados = f"dominios_sospechosos_{timestamp}.txt"
-    nombreExcel = f"excelDominiosSospechosos_{timestamp}.xlsx"
-    
-    # Rutas completas dentro de la carpeta de salida
-    archivo_salida = os.path.join(carpeta_salida, nombreListaDominiosUnificados)
-    ruta_excel = os.path.join(carpeta_salida, nombreExcel)
-    
-    sys.stdout.reconfigure(encoding='utf-8')
-    carpeta_listas = os.path.join(os.getcwd(), "listas")
-    
-    descomprimir_zips(carpeta_listas)
-    unificar_txt(carpeta_listas, archivo_salida)
-    ejecutar_analisis(path_txt=archivo_salida, salida_excel=ruta_excel)
+    raise SystemExit(main(sys.argv[1:]))
