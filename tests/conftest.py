@@ -133,6 +133,8 @@ def analysis_factory(
             "repository": repository,
             "alert_service": alert_service,
             "alert_publisher": alert_publisher,
+            "input_handler": InputHandler(),
+            "logger": logger,
         }
 
     return _factory
