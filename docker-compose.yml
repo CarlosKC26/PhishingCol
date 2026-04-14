@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: phishingcol-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-phishingcol}
+      POSTGRES_USER: ${POSTGRES_USER:-phishingcol}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-phishingcol}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-phishingcol} -d ${POSTGRES_DB:-phishingcol}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    profiles: ["cli"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phishingcol-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      RESULT_BACKEND: ${RESULT_BACKEND:-postgresql}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://phishingcol:phishingcol@postgres:5432/phishingcol}
+    volumes:
+      - ./:/app
+    entrypoint: ["python", "main.py"]
+    command: ["--help"]
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phishingcol-web
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      RESULT_BACKEND: ${RESULT_BACKEND:-postgresql}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://phishingcol:phishingcol@postgres:5432/phishingcol}
+      WEB_HOST: ${WEB_HOST:-0.0.0.0}
+      WEB_PORT: ${WEB_PORT:-8000}
+    volumes:
+      - ./:/app
+    ports:
+      - "${WEB_PORT:-8000}:8000"
+    command: ["python", "web_main.py"]
+
+volumes:
+  postgres_data:
