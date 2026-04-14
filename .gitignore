@@ -29,6 +29,15 @@ Thumbs.db
 
 # Logs
 *.log
+logs/
+output/
+.coverage
+.pytest_cache/
+coverage.xml
 
 # OneDrive temporary files
 ~$*
+
+# Other
+.coverage
+output/results.json

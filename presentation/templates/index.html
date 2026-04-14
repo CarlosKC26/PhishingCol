@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }}</title>
+    <style>
+      :root {
+        --bg: #f3efe4;
+        --panel: rgba(255, 252, 246, 0.92);
+        --ink: #18211d;
+        --muted: #5b665f;
+        --accent: #006b5f;
+        --accent-soft: #d4eee7;
+        --danger: #a63b2d;
+        --warn: #b87415;
+        --ok: #2c6b3f;
+        --shadow: 0 24px 60px rgba(23, 34, 28, 0.16);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(0, 107, 95, 0.16), transparent 34%),
+          radial-gradient(circle at bottom right, rgba(184, 116, 21, 0.14), transparent 30%),
+          linear-gradient(180deg, #fbf8f1 0%, var(--bg) 100%);
+      }
+
+      .shell {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 32px 20px 48px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 22px;
+        align-items: stretch;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid rgba(24, 33, 29, 0.08);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .hero-copy {
+        padding: 30px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 18px 0 10px;
+        font-size: clamp(2.2rem, 4vw, 4.2rem);
+        line-height: 0.96;
+      }
+
+      .hero-copy p,
+      .subtle,
+      .metric-label,
+      .empty {
+        color: var(--muted);
+      }
+
+      .hero-copy p {
+        max-width: 60ch;
+        font-size: 1rem;
+        line-height: 1.65;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .stat {
+        padding: 16px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.58);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+      }
+
+      .hero-side {
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .form-panel {
+        padding: 20px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.58);
+      }
+
+      form {
+        display: grid;
+        gap: 14px;
+      }
+
+      label {
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+
+      input[type="text"],
+      textarea,
+      input[type="file"] {
+        width: 100%;
+        padding: 16px 18px;
+        border-radius: 16px;
+        border: 1px solid rgba(24, 33, 29, 0.12);
+        font-size: 1rem;
+        background: #fffdf9;
+      }
+
+      textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+
+      .inline-toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+      }
+
+      button {
+        border: none;
+        border-radius: 16px;
+        padding: 16px 18px;
+        background: linear-gradient(135deg, var(--accent), #0f8c7d);
+        color: white;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 1.35fr 0.65fr;
+        gap: 22px;
+        margin-top: 22px;
+      }
+
+      .panel {
+        padding: 24px;
+      }
+
+      .result-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 18px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+
+      .pill.low { background: rgba(44, 107, 63, 0.12); color: var(--ok); }
+      .pill.medium { background: rgba(184, 116, 21, 0.13); color: var(--warn); }
+      .pill.high { background: rgba(166, 59, 45, 0.12); color: var(--danger); }
+      .pill.unknown { background: rgba(24, 33, 29, 0.1); color: var(--ink); }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .metric {
+        padding: 14px;
+        background: rgba(255,255,255,0.7);
+        border-radius: 16px;
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 1.35rem;
+      }
+
+      .section {
+        margin-top: 18px;
+      }
+
+      .section h3 {
+        margin: 0 0 12px;
+        font-size: 1rem;
+      }
+
+      .list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .list-item {
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.64);
+        border: 1px solid rgba(24, 33, 29, 0.06);
+      }
+
+      .list-item small {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+      }
+
+      .alert {
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(166, 59, 45, 0.08);
+        color: var(--danger);
+        border: 1px solid rgba(166, 59, 45, 0.16);
+      }
+
+      .history-card {
+        padding: 20px;
+      }
+
+      .history-card h2,
+      .panel h2 {
+        margin-top: 0;
+      }
+
+      .history-item {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(24, 33, 29, 0.08);
+      }
+
+      .history-item:last-child {
+        border-bottom: none;
+      }
+
+      code {
+        font-family: "Cascadia Code", "Consolas", monospace;
+        font-size: 0.92rem;
+      }
+
+      .batch-panel {
+        margin-top: 22px;
+      }
+
+      .batch-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      @media (max-width: 920px) {
+        .hero,
+        .layout,
+        .batch-grid {
+          grid-template-columns: 1fr;
+        }
+        .metrics,
+        .hero-stats {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <article class="card hero-copy">
+          <span class="eyebrow">Deteccion explicable</span>
+          <h1>PhishingCol</h1>
+          <p>
+            Evaluacion deterministica de URLs y dominios con reglas trazables,
+            enfoque en marcas colombianas y evidencia visible para el usuario.
+          </p>
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>&lt; 10 s</strong>
+              <span class="metric-label">tiempo objetivo por analisis</span>
+            </div>
+            <div class="stat">
+              <strong>2 s</strong>
+              <span class="metric-label">timeout de contenido estatico</span>
+            </div>
+            <div class="stat">
+              <strong>Sin JS</strong>
+              <span class="metric-label">analisis HTTP simple y controlado</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="card hero-side">
+          <section class="form-panel">
+            <div>
+              <h2>Consulta manual</h2>
+              <p class="subtle">Ingresa una URL o dominio para obtener clasificacion, score, reglas activadas y limitaciones.</p>
+            </div>
+            <form method="post" action="/analyze">
+              <div>
+                <label for="input_value">URL o dominio</label>
+                <input
+                  id="input_value"
+                  name="input_value"
+                  type="text"
+                  value="{{ input_value }}"
+                  placeholder="ej. banc0lombia-verificacion.xyz"
+                  required
+                >
+              </div>
+              <label class="inline-toggle" for="content_analysis">
+                <input id="content_analysis" name="content_analysis" type="checkbox">
+                Incluir analisis opcional de contenido estatico
+              </label>
+              <button type="submit">Analizar ahora</button>
+            </form>
+            {% if error_message %}
+              <div class="alert">{{ error_message }}</div>
+            {% endif %}
+          </section>
+
+          <section class="form-panel">
+            <div>
+              <h2>Monitoreo batch</h2>
+              <p class="subtle">Carga archivos .txt o .zip, o pega una lista de dominios para procesarlos en lote.</p>
+            </div>
+            <form method="post" action="/batch" enctype="multipart/form-data">
+              <div>
+                <label for="batch_files">Archivos batch</label>
+                <input id="batch_files" name="batch_files" type="file" accept=".txt,.zip" multiple>
+              </div>
+              <div>
+                <label for="batch_text">Dominios pegados</label>
+                <textarea id="batch_text" name="batch_text" placeholder="un-dominio-por-linea.com&#10;otro-dominio.xyz">{{ batch_text }}</textarea>
+              </div>
+              <label class="inline-toggle" for="batch_content_analysis">
+                <input id="batch_content_analysis" name="batch_content_analysis" type="checkbox">
+                Incluir analisis opcional de contenido estatico
+              </label>
+              <button type="submit">Ejecutar batch</button>
+            </form>
+            {% if batch_error_message %}
+              <div class="alert">{{ batch_error_message }}</div>
+            {% endif %}
+          </section>
+        </aside>
+      </section>
+
+      <section class="layout">
+        <article class="card panel">
+          <h2>Resultado del analisis</h2>
+          {% if result %}
+            {% set risk_css = result["risk_level"]|lower %}
+            <div class="result-header">
+              <div>
+                <div class="pill {{ risk_css }}">{{ result["risk_level"] }}</div>
+                <h3><code>{{ result["normalized_domain"] }}</code></h3>
+                <p class="subtle">{{ result["explanation"]["summary"] }}</p>
+              </div>
+              <small class="subtle">Generado: {{ generated_at }}</small>
+            </div>
+
+            <div class="metrics">
+              <div class="metric">
+                <span class="metric-label">Score</span>
+                <strong>{{ result["score"] }}</strong>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Estado</span>
+                <strong>{{ result["status"]|upper }}</strong>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Tiempo</span>
+                <strong>{{ result["execution_time_ms"] }} ms</strong>
+              </div>
+            </div>
+
+            <div class="section">
+              <h3>Reglas activadas</h3>
+              <div class="list">
+                {% for rule in result["score_breakdown"]["matched_rules"] %}
+                  <div class="list-item">
+                    <strong>{{ rule["rule_id"] }} · {{ rule["name"] }}</strong>
+                    <small>Peso: {{ rule["weight"] }} | Evidencia: {{ rule["evidence"]|join(", ") if rule["evidence"] else "sin detalle adicional" }}</small>
+                  </div>
+                {% else %}
+                  <div class="empty">No se activaron reglas de riesgo.</div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="section">
+              <h3>Evidencia</h3>
+              <div class="list">
+                {% for evidence in result["explanation"]["evidence"] %}
+                  <div class="list-item">{{ evidence }}</div>
+                {% else %}
+                  <div class="empty">No hay evidencia adicional.</div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="section">
+              <h3>Limitaciones</h3>
+              <div class="list">
+                {% for limitation in result["explanation"]["limitations"] %}
+                  <div class="list-item">{{ limitation }}</div>
+                {% else %}
+                  <div class="empty">El analisis no reporto limitaciones controladas.</div>
+                {% endfor %}
+              </div>
+            </div>
+          {% else %}
+            <p class="empty">Aun no hay resultado en pantalla. Ejecuta una consulta manual para ver la explicacion trazable del sistema.</p>
+          {% endif %}
+        </article>
+
+        <aside class="card history-card">
+          <h2>Hallazgos recientes</h2>
+          <p class="subtle">Ultimos dominios de alto riesgo recuperados desde la persistencia configurada.</p>
+          {% for item in recent_high_risk %}
+            <div class="history-item">
+              <strong><code>{{ item["normalized_domain"] }}</code></strong>
+              <div class="pill {{ item["risk_level"]|lower }}" style="margin-top: 8px; width: fit-content;">{{ item["risk_level"] }} · {{ item["score"] }}</div>
+            </div>
+          {% else %}
+            <p class="empty">Todavia no hay resultados de alto riesgo guardados.</p>
+          {% endfor %}
+        </aside>
+      </section>
+
+      <section class="card panel batch-panel">
+        <h2>Resumen batch</h2>
+        {% if batch_result %}
+          <div class="batch-grid">
+            <div class="metric">
+              <span class="metric-label">Resultados procesados</span>
+              <strong>{{ batch_result["results_count"] }}</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Hallazgos HIGH</span>
+              <strong>{{ batch_result["high_risk_count"] }}</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Alertas generadas</span>
+              <strong>{{ batch_result["alerts"]|length }}</strong>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3>Dominios de alto riesgo</h3>
+            <div class="list">
+              {% for item in batch_result["high_risk_results"] %}
+                <div class="list-item">
+                  <strong><code>{{ item["normalized_domain"] }}</code></strong>
+                  <small>Riesgo: {{ item["risk_level"] }} | Score: {{ item["score"] }}</small>
+                </div>
+              {% else %}
+                <div class="empty">El lote no produjo resultados de riesgo alto.</div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="section">
+            <h3>Reportes generados</h3>
+            <div class="list">
+              {% for report_name, report_path in batch_result["reports"].items() %}
+                <div class="list-item">
+                  <strong>{{ report_name }}</strong>
+                  <small><code>{{ report_path }}</code></small>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <p class="empty">Todavia no se ha ejecutado un monitoreo batch desde la interfaz.</p>
+        {% endif %}
+      </section>
+    </main>
+  </body>
+</html>
