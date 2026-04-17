@@ -9,7 +9,8 @@ from presentation.web_controller import create_app
 def main() -> None:
     services = build_service_bundle()
     app = create_app(services)
-    host = os.getenv("WEB_HOST", "0.0.0.0")
+    # Binding to all interfaces is intentional for Docker and deployment scenarios.
+    host = os.getenv("WEB_HOST", "0.0.0.0")  # nosec B104
     port = int(os.getenv("WEB_PORT", "8000"))
     app.run(host=host, port=port, debug=False)
 

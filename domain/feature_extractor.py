@@ -40,8 +40,9 @@ class FeatureExtractor:
             f"{input_data.normalized_domain} {input_data.path.replace('/', ' ')}"
         )
         label = extract_domain_label(registrable_domain, tld)
-        normalized_label = normalize_token(label)
-        raw_label_segments = [segment for segment in re.split(r"[^a-z0-9]+", label.lower()) if segment]
+        raw_label_segments = [
+            segment for segment in re.split(r"[^a-z0-9]+", label.lower()) if segment
+        ]
 
         features = FeatureSet(
             normalized_url=input_data.normalized_url,

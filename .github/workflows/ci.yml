@@ -5,7 +5,55 @@ on:
     branches: ["main", "master"]
   pull_request:
 
+permissions:
+  contents: read
+
+env:
+  PYTHON_VERSION: "3.11"
+
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install lint dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff
+
+      - name: Run Ruff
+        run: ruff check . --output-format=github
+
+  sast:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install SAST dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install bandit
+
+      - name: Run Bandit
+        run: bandit -r application domain infrastructure presentation main.py web_main.py core.py
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +63,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
 
       - name: Install dependencies
         run: |

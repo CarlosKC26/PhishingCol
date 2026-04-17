@@ -60,7 +60,8 @@ class StaticContentFetcher:
             },
         )
         try:
-            with urlopen(request, timeout=timeout_seconds) as response:
+            # Remote HTML retrieval is the core of the optional static content analysis.
+            with urlopen(request, timeout=timeout_seconds) as response:  # nosec B310
                 raw_body = response.read(65536)
                 charset = response.headers.get_content_charset() or "utf-8"
                 body = raw_body.decode(charset, errors="ignore")
