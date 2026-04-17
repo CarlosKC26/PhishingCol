@@ -1,5 +1,5 @@
 {
-  "version": "3.0",
+  "version": "3.1",
   "brands": [
     {
       "brand_id": "bancolombia",
@@ -126,6 +126,473 @@
         "alk0sto",
         "alkostto",
         "a1kosto"
+      ]
+    },
+    {
+      "brand_id": "sanitas",
+      "display_name": "EPS Sanitas",
+      "sector": "salud",
+      "official_domains": [
+        "epssanitas.com"
+      ],
+      "official_tlds": [
+        "com"
+      ],
+      "primary_keywords": [
+        "sanitas",
+        "eps sanitas",
+        "epssanitas",
+        "keralty"
+      ],
+      "secondary_keywords": [
+        "oficina virtual",
+        "autorizaciones",
+        "citas",
+        "afiliacion",
+        "medicamentos"
+      ],
+      "related_keywords": [
+        "salud",
+        "eps",
+        "usuario",
+        "prestadores",
+        "historia clinica"
+      ],
+      "typosquatting_variants": [
+        "epssanitass",
+        "s4nitas",
+        "epss4nitas"
+      ]
+    },
+    {
+      "brand_id": "epssura",
+      "display_name": "EPS SURA",
+      "sector": "salud",
+      "official_domains": [
+        "epssura.com"
+      ],
+      "official_tlds": [
+        "com"
+      ],
+      "primary_keywords": [
+        "sura",
+        "eps sura",
+        "epssura",
+        "sura salud"
+      ],
+      "secondary_keywords": [
+        "citas",
+        "afiliados",
+        "autorizaciones",
+        "medicamentos",
+        "incapacidades"
+      ],
+      "related_keywords": [
+        "salud",
+        "eps",
+        "usuario",
+        "afiliacion",
+        "prestadores"
+      ],
+      "typosquatting_variants": [
+        "epssur4",
+        "epssuraa",
+        "eps5ura"
+      ]
+    },
+    {
+      "brand_id": "enelcolombia",
+      "display_name": "Enel Colombia",
+      "sector": "servicios_publicos",
+      "official_domains": [
+        "enel.com.co"
+      ],
+      "official_tlds": [
+        "com.co"
+      ],
+      "primary_keywords": [
+        "enel",
+        "enel colombia",
+        "mi enel",
+        "mienel",
+        "codensa"
+      ],
+      "secondary_keywords": [
+        "factura",
+        "zona privada",
+        "factura virtual",
+        "pagos",
+        "servicios clientes"
+      ],
+      "related_keywords": [
+        "energia",
+        "electricidad",
+        "bogota",
+        "cundinamarca",
+        "clientes"
+      ],
+      "typosquatting_variants": [
+        "ene1",
+        "enell",
+        "codens4"
+      ]
+    },
+    {
+      "brand_id": "vanti",
+      "display_name": "Grupo Vanti",
+      "sector": "servicios_publicos",
+      "official_domains": [
+        "grupovanti.com"
+      ],
+      "official_tlds": [
+        "com"
+      ],
+      "primary_keywords": [
+        "vanti",
+        "grupo vanti",
+        "grupovanti",
+        "vanti listo"
+      ],
+      "secondary_keywords": [
+        "factura",
+        "revision periodica",
+        "gas natural",
+        "pago en linea",
+        "gasodomesticos"
+      ],
+      "related_keywords": [
+        "hogares",
+        "clientes",
+        "servicio",
+        "gas",
+        "revision"
+      ],
+      "typosquatting_variants": [
+        "vant1",
+        "vantti",
+        "v4nti"
+      ]
+    },
+    {
+      "brand_id": "acueductobogota",
+      "display_name": "Acueducto de Bogota",
+      "sector": "servicios_publicos",
+      "official_domains": [
+        "acueducto.com.co"
+      ],
+      "official_tlds": [
+        "com.co"
+      ],
+      "primary_keywords": [
+        "acueducto",
+        "acueducto bogota",
+        "acueductobogota",
+        "eaab"
+      ],
+      "secondary_keywords": [
+        "factura virtual",
+        "mi cuenta",
+        "pago en linea",
+        "alcantarillado",
+        "facturacion"
+      ],
+      "related_keywords": [
+        "agua",
+        "bogota",
+        "servicio",
+        "medidor",
+        "factura"
+      ],
+      "typosquatting_variants": [
+        "acueduct0",
+        "ea4b",
+        "acueductobogot4"
+      ]
+    },
+    {
+      "brand_id": "simit",
+      "display_name": "SIMIT",
+      "sector": "tramites_publicos",
+      "official_domains": [
+        "fcm.org.co",
+        "simt.co"
+      ],
+      "official_tlds": [
+        "org.co",
+        "co"
+      ],
+      "primary_keywords": [
+        "simit",
+        "simit comparendos",
+        "simit consulta",
+        "simit multas"
+      ],
+      "secondary_keywords": [
+        "comparendos",
+        "fotomultas",
+        "consulta",
+        "infracciones",
+        "transito"
+      ],
+      "related_keywords": [
+        "fcm",
+        "federacion colombiana de municipios",
+        "vehiculo",
+        "multas",
+        "tramites"
+      ],
+      "typosquatting_variants": [
+        "sim1t",
+        "simiit",
+        "s1mit"
+      ]
+    },
+    {
+      "brand_id": "dolarapp",
+      "display_name": "ARQ Finance",
+      "sector": "fintech",
+      "official_domains": [
+        "arqfinance.com"
+      ],
+      "official_tlds": [
+        "com"
+      ],
+      "primary_keywords": [
+        "dolarapp",
+        "dolar app",
+        "arq finance",
+        "arqfinance"
+      ],
+      "secondary_keywords": [
+        "cuenta en dolares",
+        "tarjeta",
+        "transferencias",
+        "usdc",
+        "tipo de cambio"
+      ],
+      "related_keywords": [
+        "finanzas",
+        "app",
+        "inversiones",
+        "tarjeta virtual",
+        "dolares digitales"
+      ],
+      "typosquatting_variants": [
+        "dolar4pp",
+        "do1arapp",
+        "arqfin4nce"
+      ]
+    },
+    {
+      "brand_id": "claro",
+      "display_name": "Claro Colombia",
+      "sector": "telecomunicaciones",
+      "official_domains": [
+        "claro.com.co"
+      ],
+      "official_tlds": [
+        "com.co"
+      ],
+      "primary_keywords": [
+        "claro",
+        "claro colombia",
+        "mi claro",
+        "miclaro"
+      ],
+      "secondary_keywords": [
+        "factura",
+        "recarga",
+        "postpago",
+        "hogar",
+        "pagar"
+      ],
+      "related_keywords": [
+        "fibra",
+        "internet",
+        "celular",
+        "whatsapp",
+        "servicios"
+      ],
+      "typosquatting_variants": [
+        "clar0",
+        "c1aro",
+        "cl4ro"
+      ]
+    },
+    {
+      "brand_id": "movistar",
+      "display_name": "Movistar Colombia",
+      "sector": "telecomunicaciones",
+      "official_domains": [
+        "movistar.com.co"
+      ],
+      "official_tlds": [
+        "com.co"
+      ],
+      "primary_keywords": [
+        "movistar",
+        "movistar colombia",
+        "mi movistar",
+        "mimovistar"
+      ],
+      "secondary_keywords": [
+        "factura",
+        "recarga",
+        "portabilidad",
+        "prepago",
+        "pospago"
+      ],
+      "related_keywords": [
+        "fibra",
+        "celular",
+        "internet",
+        "whatsapp",
+        "servicios"
+      ],
+      "typosquatting_variants": [
+        "mov1star",
+        "m0vistar",
+        "moviistar"
+      ]
+    },
+    {
+      "brand_id": "rappi",
+      "display_name": "Rappi",
+      "sector": "comercio_digital",
+      "official_domains": [
+        "rappi.com.co"
+      ],
+      "official_tlds": [
+        "com.co"
+      ],
+      "primary_keywords": [
+        "rappi",
+        "rappi card",
+        "rappicard"
+      ],
+      "secondary_keywords": [
+        "pedido",
+        "domicilio",
+        "cuenta",
+        "app",
+        "pagos"
+      ],
+      "related_keywords": [
+        "restaurantes",
+        "mercados",
+        "tarjeta",
+        "compras",
+        "domicilios"
+      ],
+      "typosquatting_variants": [
+        "rapp1",
+        "raappi",
+        "rappiii"
+      ]
+    },
+    {
+      "brand_id": "avianca",
+      "display_name": "Avianca",
+      "sector": "aerolinea",
+      "official_domains": [
+        "avianca.com"
+      ],
+      "official_tlds": [
+        "com"
+      ],
+      "primary_keywords": [
+        "avianca",
+        "avianca empresas",
+        "lifemiles"
+      ],
+      "secondary_keywords": [
+        "checkin",
+        "check in",
+        "reserva",
+        "vuelos",
+        "tiquetes"
+      ],
+      "related_keywords": [
+        "equipaje",
+        "pasabordo",
+        "millas",
+        "viaje",
+        "vuelo"
+      ],
+      "typosquatting_variants": [
+        "av1anca",
+        "aviannca",
+        "avlanca"
+      ]
+    },
+    {
+      "brand_id": "efecty",
+      "display_name": "Efecty",
+      "sector": "pagos",
+      "official_domains": [
+        "efecty.com.co"
+      ],
+      "official_tlds": [
+        "com.co"
+      ],
+      "primary_keywords": [
+        "efecty",
+        "e-efecty",
+        "e efecty"
+      ],
+      "secondary_keywords": [
+        "giro",
+        "giros",
+        "pagos",
+        "consulta tu giro",
+        "recargas"
+      ],
+      "related_keywords": [
+        "recaudos",
+        "dinero",
+        "puntos de atencion",
+        "servicio",
+        "portal corporativo"
+      ],
+      "typosquatting_variants": [
+        "efect1",
+        "efectyy",
+        "ef3cty"
+      ]
+    },
+    {
+      "brand_id": "servientrega",
+      "display_name": "Servientrega",
+      "sector": "logistica",
+      "official_domains": [
+        "servientrega.com"
+      ],
+      "official_tlds": [
+        "com"
+      ],
+      "primary_keywords": [
+        "servientrega",
+        "servientrega personas",
+        "servientrega empresas"
+      ],
+      "secondary_keywords": [
+        "rastreo",
+        "guia",
+        "envio",
+        "paquete",
+        "seguimiento"
+      ],
+      "related_keywords": [
+        "logistica",
+        "mensajeria",
+        "tracking",
+        "entregas",
+        "envios"
+      ],
+      "typosquatting_variants": [
+        "servientr3ga",
+        "servientregga",
+        "serventrega"
       ]
     }
   ]
