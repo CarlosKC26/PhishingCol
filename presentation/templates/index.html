@@ -247,6 +247,15 @@
         border: 1px solid rgba(166, 59, 45, 0.16);
       }
 
+      .notice {
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: rgba(0, 107, 95, 0.08);
+        color: var(--accent);
+        border: 1px solid rgba(0, 107, 95, 0.14);
+        font-size: 0.92rem;
+      }
+
       .history-card {
         padding: 20px;
       }
@@ -342,6 +351,27 @@
                 <input id="content_analysis" name="content_analysis" type="checkbox">
                 Incluir analisis opcional de contenido estatico
               </label>
+              <label class="inline-toggle" for="ai_summary">
+                <input
+                  id="ai_summary"
+                  name="ai_summary"
+                  type="checkbox"
+                  {% if ai_summary_requested %}checked{% endif %}
+                  {% if not ai_summary_available %}disabled{% endif %}
+                >
+                Generar resumen asistido por IA con OpenRouter
+              </label>
+              {% if ai_summary_available %}
+                <div class="notice">
+                  Disponible para consultas manuales. La IA solo redacta el resultado;
+                  no modifica el score ni la clasificacion del sistema.
+                </div>
+              {% else %}
+                <div class="notice">
+                  Resumen asistido por IA no disponible. Configura <code>OPENROUTER_API_KEY</code>
+                  y vuelve a cargar la aplicacion para activarlo.
+                </div>
+              {% endif %}
               <button type="submit">Analizar ahora</button>
             </form>
             {% if error_message %}
@@ -440,6 +470,39 @@
                 {% endfor %}
               </div>
             </div>
+
+            {% if ai_summary %}
+              <div class="section">
+                <h3>Resumen narrativo asistido por IA</h3>
+                <div class="list">
+                  <div class="list-item">
+                    {{ ai_summary["narrative_summary"] }}
+                    <small>{{ ai_summary["provider"] }} · Modelo: {{ ai_summary["model"] }}</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section">
+                <h3>Pasos sugeridos</h3>
+                <div class="list">
+                  {% for step in ai_summary["suggested_steps"] %}
+                    <div class="list-item">{{ step }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="section">
+                <h3>Disclaimer IA</h3>
+                <div class="list">
+                  <div class="list-item">{{ ai_summary["disclaimer"] }}</div>
+                </div>
+              </div>
+            {% elif ai_error_message %}
+              <div class="section">
+                <h3>Resumen asistido por IA</h3>
+                <div class="alert">{{ ai_error_message }}</div>
+              </div>
+            {% endif %}
           {% else %}
             <p class="empty">Aun no hay resultado en pantalla. Ejecuta una consulta manual para ver la explicacion trazable del sistema.</p>
           {% endif %}

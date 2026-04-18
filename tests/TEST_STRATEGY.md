@@ -49,6 +49,7 @@ La calidad del proyecto se asegura mediante varias capas complementarias:
 - pruebas automatizadas para el core de negocio
 - validacion de integracion del pipeline end-to-end
 - pruebas funcionales de la UI web
+- validacion de la capa opcional de resumen asistido por IA
 - cobertura automatizada
 - linting con `ruff`
 - analisis SAST con `bandit`
@@ -67,6 +68,7 @@ Cobertura principal:
 - `test_risk_classifier.py`: clasificacion por umbrales
 - `test_repository_factory.py`: seleccion del backend de persistencia
 - `test_result_repository_postgresql.py`: serializacion de datos para PostgreSQL
+- `test_ai_summary_integration.py`: generacion, parseo y desacoplamiento del resumen asistido por IA
 
 ### 5.2 Pruebas de integracion
 
@@ -86,6 +88,7 @@ Cobertura principal:
 
 - `test_web_controller.py`: carga de la pagina principal
 - analisis manual desde formulario web
+- visualizacion del resumen asistido por IA en la UI manual
 - procesamiento batch desde UI
 
 ## 6. Criterios de Entrada y Salida
@@ -116,6 +119,7 @@ Los casos minimos cubiertos por la suite son:
 - phishing con keywords de ingenieria social
 - dominio anormalmente largo
 - error HTTP o timeout simulado con resultado parcial
+- generacion de resumen narrativo y pasos sugeridos a partir de resultados deterministas
 - batch con multiples dominios, reportes y alertas
 - consulta desde interfaz web
 
@@ -156,6 +160,8 @@ El oraculo principal de validacion es deterministico y se basa en:
   Evidencia: `test_repository_factory.py`, `test_result_repository_postgresql.py`
 - Interfaz web para consulta manual y batch.
   Evidencia: `test_web_controller.py`
+- Capa opcional de resumen asistido por IA sin impacto en score ni riesgo.
+  Evidencia: `test_ai_summary_integration.py`, `test_web_controller.py`
 
 ## 10. Cobertura Objetivo
 
@@ -163,8 +169,8 @@ El proyecto define una cobertura minima objetivo de 70% o superior.
 
 En la verificacion local mas reciente usada para esta entrega:
 
-- pruebas ejecutadas: 23
-- resultado: 23 exitosas
+- pruebas ejecutadas: 30
+- resultado: 30 exitosas
 - cobertura total: 81%
 
 ## 11. Evidencia de Ejecucion

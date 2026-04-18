@@ -259,6 +259,28 @@ class AnalysisResult:
 
 
 @dataclass(frozen=True)
+class AISummaryResult:
+    narrative_summary: str
+    suggested_steps: tuple[str, ...]
+    disclaimer: str
+    provider: str
+    model: str
+    generated_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "narrative_summary": self.narrative_summary,
+            "suggested_steps": list(self.suggested_steps),
+            "disclaimer": self.disclaimer,
+            "provider": self.provider,
+            "model": self.model,
+            "generated_at": self.generated_at,
+        }
+
+
+@dataclass(frozen=True)
 class AlertDraft:
     input_value: str
     normalized_domain: str

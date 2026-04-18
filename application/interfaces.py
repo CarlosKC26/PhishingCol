@@ -4,6 +4,7 @@ from typing import Protocol, Sequence
 
 from domain.models import (
     AlertDraft,
+    AISummaryResult,
     AnalysisResult,
     BrandCatalog,
     BrandDefinition,
@@ -64,4 +65,9 @@ class ReportWriter(Protocol):
 
 class StaticContentFetcherPort(Protocol):
     def fetch(self, url: str, timeout_seconds: float) -> StaticContentSnapshot:
+        ...
+
+
+class AISummaryGenerator(Protocol):
+    def generate(self, result: AnalysisResult) -> AISummaryResult:
         ...
