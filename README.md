@@ -14,6 +14,7 @@ Sistema deterministico y explicable para deteccion de phishing basado en URLs y 
 
 - Analisis manual por CLI.
 - Analisis manual desde UI web.
+- Resumen narrativo asistido por IA para consultas manuales desde la UI.
 - Monitoreo batch desde CLI.
 - Monitoreo batch desde UI web mediante archivos `.txt`, `.zip` o texto pegado.
 - Persistencia en `output/results.json` o en PostgreSQL.
@@ -39,12 +40,22 @@ Archivos principales:
 - `config/pesos.json`: reglas, pesos, umbrales y timeouts.
 - `.env.example`: variables para Docker y PostgreSQL.
 
+Variables opcionales para el resumen asistido por IA:
+
+- `OPENROUTER_API_KEY`: API key de OpenRouter.
+- `OPENROUTER_MODEL`: modelo a utilizar. Si se deja vacio, OpenRouter usa el modelo por defecto configurado para la cuenta.
+- `OPENROUTER_TIMEOUT_SECONDS`: timeout de la solicitud al proveedor.
+- `OPENROUTER_REFERER`: header opcional `HTTP-Referer`.
+- `OPENROUTER_APP_TITLE`: header opcional `X-OpenRouter-Title`.
+
 Backends de persistencia:
 
 - `RESULT_BACKEND=mock`: guarda resultados en `output/results.json`.
 - `RESULT_BACKEND=postgresql`: usa `DATABASE_URL` y persiste en PostgreSQL.
 
 Si PostgreSQL no esta disponible o la configuracion es invalida, el sistema vuelve de forma controlada a persistencia mock.
+
+Si existe un archivo `.env` en la raiz del proyecto, la aplicacion lo carga automaticamente al iniciar los servicios.
 
 ## Ejecucion local
 
@@ -55,25 +66,33 @@ Si PostgreSQL no esta disponible o la configuracion es invalida, el sistema vuel
 python -m pip install -r requirements.txt
 ```
 
-3. Ejecutar analisis manual por CLI:
+3. Opcional: copiar `.env.example` a `.env` y configurar OpenRouter si quieres habilitar el resumen asistido por IA:
+
+Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+4. Ejecutar analisis manual por CLI:
 
 ```bash
 python main.py banc0lombia-verificacion.xyz
 ```
 
-4. Ejecutar monitoreo batch por CLI:
+5. Ejecutar monitoreo batch por CLI:
 
 ```bash
 python main.py --batch listas/2026-01-31.txt --output-dir output
 ```
 
-5. Ejecutar la interfaz web:
+6. Ejecutar la interfaz web:
 
 ```bash
 python web_main.py
 ```
 
-6. Abrir en el navegador:
+7. Abrir en el navegador:
 
 ```text
 http://127.0.0.1:8000
@@ -82,9 +101,33 @@ http://127.0.0.1:8000
 Desde la UI se puede:
 
 - analizar una URL o dominio individual
+- generar un resumen narrativo asistido por IA para una consulta manual
 - cargar archivos `.txt` o `.zip` para monitoreo batch
 - pegar listas de dominios para procesamiento batch
 - consultar resumen de resultados, alertas y reportes generados
+
+## Resumen asistido por IA
+
+La integracion con OpenRouter recibe el resultado estructurado del analisis y lo convierte en lenguaje humano para facilitar la lectura por parte del usuario final.
+
+La UI manual puede mostrar:
+
+- resumen narrativo
+- pasos sugeridos
+- disclaimer explicito sobre uso de inteligencia artificial
+
+Importante:
+
+- la IA no modifica el `score`
+- la IA no modifica la `risk_level`
+- la IA solo reexpresa el resultado deterministico producido por PhishingCol
+
+Activacion:
+
+1. Configura `OPENROUTER_API_KEY` en `.env` o como variable de entorno.
+2. Opcionalmente configura `OPENROUTER_MODEL`.
+3. Inicia la UI con `python web_main.py`.
+4. Marca la opcion `Generar resumen asistido por IA con OpenRouter`.
 
 ## Pruebas y cobertura
 
@@ -114,7 +157,7 @@ Niveles cubiertos:
 
 - unitarias: validacion de entrada, extraccion de features, reglas, scoring y clasificacion
 - integracion: pipeline completo de analisis y persistencia
-- web: consulta manual y batch desde la UI
+- web: consulta manual, resumen asistido por IA y batch desde la UI
 
 ## Docker y contenedores
 
@@ -196,6 +239,12 @@ Checks actuales del pipeline:
 - `bandit` para analisis SAST
 - `pytest` para pruebas automatizadas
 
+Documentacion oficial usada para la integracion OpenRouter:
+
+- Quickstart: https://openrouter.ai/docs
+- Chat Completions API: https://openrouter.ai/docs/api-reference/chat-completion
+- Authentication y API keys: https://openrouter.ai/docs/api-keys
+
 ## Validacion de la Entrega 3
 
 Para cumplir y sustentar la rubrica de la Entrega 3, conviene presentar estas evidencias:
@@ -241,6 +290,7 @@ Casos minimos que debes mencionar en el informe:
 - phishing con keywords
 - dominio largo sospechoso
 - error HTTP o timeout simulado con resultado parcial
+- resumen asistido por IA generado a partir de un resultado deterministico
 
 ### 4. Validacion de requisitos
 

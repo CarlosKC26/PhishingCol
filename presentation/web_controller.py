@@ -9,6 +9,7 @@ from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 
 from application.bootstrap import ServiceBundle
+from domain.models import AnalysisResult
 from presentation.input_handler import InputValidationError
 
 
@@ -27,6 +28,7 @@ def create_app(services: ServiceBundle) -> Flask:
     def analyze():
         input_value = request.form.get("input_value", "").strip()
         enable_content_analysis = request.form.get("content_analysis") == "on"
+        enable_ai_summary = request.form.get("ai_summary") == "on"
 
         try:
             domain_input = services.input_handler.prepare(
@@ -36,10 +38,18 @@ def create_app(services: ServiceBundle) -> Flask:
                 run_id=datetime.now().strftime("%Y%m%d_%H%M%S"),
             )
             result = services.analysis_service.analyze(domain_input)
+            ai_summary, ai_error_message = _build_ai_summary(
+                services=services,
+                result=result,
+                requested=enable_ai_summary,
+            )
             return _render_home(
                 services,
                 result=result.to_dict(),
                 input_value=input_value,
+                ai_summary=ai_summary,
+                ai_error_message=ai_error_message,
+                ai_summary_requested=enable_ai_summary,
             )
         except InputValidationError as error:
             return (
@@ -48,6 +58,7 @@ def create_app(services: ServiceBundle) -> Flask:
                     result=None,
                     input_value=input_value,
                     error_message=str(error),
+                    ai_summary_requested=enable_ai_summary,
                 ),
                 400,
             )
@@ -89,6 +100,9 @@ def _render_home(
     result: dict[str, object] | None = None,
     input_value: str = "",
     error_message: str | None = None,
+    ai_summary: dict[str, object] | None = None,
+    ai_error_message: str | None = None,
+    ai_summary_requested: bool = False,
     batch_result: dict[str, object] | None = None,
     batch_text: str = "",
     batch_error_message: str | None = None,
@@ -100,6 +114,10 @@ def _render_home(
         result=result,
         input_value=input_value,
         error_message=error_message,
+        ai_summary=ai_summary,
+        ai_error_message=ai_error_message,
+        ai_summary_requested=ai_summary_requested,
+        ai_summary_available=_ai_summary_available(services),
         batch_result=batch_result,
         batch_text=batch_text,
         batch_error_message=batch_error_message,
@@ -181,3 +199,34 @@ def _safe_find_high_risk(services: ServiceBundle) -> list[dict[str, object]]:
             "No fue posible consultar los resultados de alto riesgo para la UI."
         )
         return []
+
+
+def _ai_summary_available(services: ServiceBundle) -> bool:
+    ai_summary_service = services.ai_summary_service
+    if ai_summary_service is None:
+        return False
+    return ai_summary_service.is_available
+
+
+def _build_ai_summary(
+    services: ServiceBundle,
+    result: AnalysisResult,
+    requested: bool,
+) -> tuple[dict[str, object] | None, str | None]:
+    if not requested:
+        return None, None
+
+    ai_summary_service = services.ai_summary_service
+    if ai_summary_service is None or not ai_summary_service.is_available:
+        return (
+            None,
+            "El resumen asistido por IA no esta disponible. Configura OPENROUTER_API_KEY para activarlo.",
+        )
+
+    summary = ai_summary_service.summarize(result)
+    if summary is None:
+        return (
+            None,
+            "No fue posible generar el resumen asistido por IA para este analisis.",
+        )
+    return summary.to_dict(), None

@@ -19,6 +19,7 @@ La construccion de la Entrega 3 se enfoco en:
 - configuracion externa del comportamiento analitico
 - pruebas automatizadas unitarias, de integracion y funcionales
 - aseguramiento de calidad con linting y analisis SAST
+- capa opcional de resumen asistido por IA sobre resultados deterministas
 
 ## 3. Construccion y codificacion
 
@@ -106,6 +107,12 @@ Declaraciones clave:
 - las decisiones tecnicas y validaciones finales fueron revisadas manualmente
 - cualquier apoyo de IA generativa fue supervisado y verificado antes de integrarse
 
+Implementacion concreta:
+
+- integracion opcional con OpenRouter para transformar el analisis estructurado en lenguaje humano
+- presentacion en UI mediante resumen narrativo, pasos sugeridos y disclaimer
+- desacoplamiento completo del motor de scoring: la IA no modifica reglas, score ni nivel de riesgo
+
 ## 4. Pruebas y aseguramiento de calidad
 
 ### 4.1 Estrategia de pruebas
@@ -124,6 +131,7 @@ La estrategia formal se documenta en `tests/TEST_STRATEGY.md` y cubre:
 
 La suite automatizada incluye:
 
+- `test_ai_summary_integration.py`
 - `test_input_handler.py`
 - `test_feature_extractor.py`
 - `test_scoring_engine.py`
@@ -139,6 +147,7 @@ Estas pruebas cubren:
 - extraccion de señales estructurales
 - activacion de reglas de negocio
 - scoring y clasificacion
+- generacion opcional de resumen asistido por IA
 - persistencia
 - flujo end-to-end
 - procesamiento batch
@@ -149,14 +158,15 @@ Estas pruebas cubren:
 Ejecucion local mas reciente:
 
 ```text
-collected 23 items
-23 passed
+collected 30 items
+30 passed
 coverage total: 81%
 ```
 
 Resumen de ejecucion:
 
 ```text
+tests\test_ai_summary_integration.py .....
 tests\test_analysis_pipeline.py ...... 
 tests\test_feature_extractor.py ...
 tests\test_input_handler.py ....
@@ -170,7 +180,7 @@ tests\test_web_controller.py ...
 Cobertura total observada:
 
 ```text
-TOTAL 1341 255 81%
+TOTAL 1621 307 81%
 ```
 
 ### 4.4 Validacion de requisitos y casos de negocio
@@ -182,6 +192,7 @@ Casos de negocio cubiertos por la suite:
 - phishing con ingenieria social
 - dominio anormalmente largo
 - timeout o error HTTP con resultado parcial
+- resumen asistido por IA generado a partir de resultados deterministas
 - procesamiento batch con alertas y reportes
 - uso del sistema desde la interfaz web
 
@@ -226,6 +237,7 @@ Durante la construccion se identificaron y corrigieron defectos o mejoras releva
 | Flujo Docker mezclando CLI y web | Complejidad de despliegue y uso | Separacion entre contenedor `web` y contenedor `app` | `docker-compose.yml`, README |
 | Falta de batch en UI | Cobertura funcional incompleta | Se agrego soporte batch en interfaz web | `test_web_controller.py` |
 | CI basico sin controles estaticos | Menor aseguramiento de calidad | Se integraron `ruff` y `bandit` al workflow | `.github/workflows/ci.yml` |
+| Salida tecnica poco amigable para usuarios finales | Baja accesibilidad del resultado | Se agrego resumen asistido por IA con OpenRouter sin alterar el motor determinista | `presentation/web_controller.py`, `presentation/templates/index.html` |
 
 ## 6. Evidencias del repositorio
 
