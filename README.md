@@ -52,7 +52,7 @@ Si PostgreSQL no esta disponible o la configuracion es invalida, el sistema vuel
 2. Instalar dependencias:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 3. Ejecutar analisis manual por CLI:
@@ -91,14 +91,18 @@ Desde la UI se puede:
 Ejecutar la suite:
 
 ```bash
-pytest
+python -m pytest
 ```
 
 Ejecutar con detalle de cobertura:
 
 ```bash
-pytest --cov=. --cov-report=term-missing
+python -m pytest --cov=. --cov-report=term-missing
 ```
+
+Nota:
+
+- en Windows conviene usar `python -m pytest` en lugar de `pytest` para evitar problemas de `PATH`
 
 La estrategia de pruebas esta documentada en [tests/TEST_STRATEGY.md](tests/TEST_STRATEGY.md).
 
@@ -184,7 +188,13 @@ docker compose down
 
 ## CI minimo
 
-Se incluye el workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) para ejecutar pruebas automaticamente en `push` y `pull_request`.
+Se incluye el workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) para ejecutar controles automaticos en `push` y `pull_request`.
+
+Checks actuales del pipeline:
+
+- `ruff` para linting
+- `bandit` para analisis SAST
+- `pytest` para pruebas automatizadas
 
 ## Validacion de la Entrega 3
 
@@ -221,8 +231,8 @@ Mencionar que el sistema implementa los modulos definidos en la arquitectura:
 Adjuntar o citar:
 
 - [tests/TEST_STRATEGY.md](tests/TEST_STRATEGY.md)
-- salida de `pytest`
-- salida de `pytest --cov=. --cov-report=term-missing`
+- salida de `python -m pytest`
+- salida de `python -m pytest --cov=. --cov-report=term-missing`
 
 Casos minimos que debes mencionar en el informe:
 
@@ -264,7 +274,7 @@ python main.py --batch listas/2026-01-31.txt --output-dir output
 Pruebas y cobertura:
 
 ```bash
-pytest --cov=. --cov-report=term-missing
+python -m pytest --cov=. --cov-report=term-missing
 ```
 
 Despliegue con Docker:
@@ -291,6 +301,17 @@ Para cubrir los puntos restantes de la rubrica, adjunta tambien:
 - una nota breve indicando que el core analitico no usa IA para scoring ni clasificacion
 - una nota breve indicando que cualquier uso de IA generativa fue asistencial y que el codigo y las pruebas fueron verificados manualmente
 
+### Uso responsable de IA generativa
+
+En este proyecto, cualquier uso de IA generativa debe presentarse como apoyo asistencial y no como mecanismo de decision del producto.
+
+Puntos que conviene declarar en la entrega:
+
+- la IA no participa en el scoring ni en la clasificacion de riesgo
+- el motor analitico es deterministico y basado en reglas configurables
+- las decisiones tecnicas, pruebas y validaciones finales fueron revisadas manualmente
+- la IA se uso, en caso de mencionarse, para apoyo en redaccion, refactorizacion o generacion asistida de codigo bajo supervision
+
 ### 7. Defectos y correcciones
 
 Si el profesor pide gestion de defectos, incluye una tabla corta con:
@@ -305,6 +326,10 @@ Ejemplos validos de este proyecto:
 - correccion de serializacion JSONB para persistencia en PostgreSQL
 - ajuste del flujo Docker separando `web` persistente y `app` CLI efimera
 - ampliacion de la UI para soportar batch sin duplicar la logica del core
+
+Tambien puedes mencionar como correccion reciente de aseguramiento de calidad:
+
+- incorporacion de lint con `ruff` y SAST con `bandit` en el workflow de CI
 
 ## Restricciones implementadas
 
