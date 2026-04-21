@@ -14,6 +14,7 @@ class ScoringEngine:
         self._evaluators: dict[str, RuleEvaluator] = {
             "typosquatting_detected": self._evaluate_typosquatting,
             "brand_keyword_detected": self._evaluate_brand_keywords,
+            "brand_stuffing_detected": self._evaluate_brand_stuffing,
             "social_engineering_detected": self._evaluate_social_engineering,
             "suspicious_tld_detected": self._evaluate_suspicious_tld,
             "deceptive_subdomain_detected": self._evaluate_deceptive_subdomain,
@@ -66,6 +67,14 @@ class ScoringEngine:
         if features.exact_brand_match or not features.matched_primary_keywords:
             return False, ()
         return True, tuple(features.matched_primary_keywords)
+
+    @staticmethod
+    def _evaluate_brand_stuffing(
+        rule: RuleConfig, features: FeatureSet
+    ) -> tuple[bool, tuple[str, ...]]:
+        if features.exact_brand_match or not features.brand_stuffing_matches:
+            return False, ()
+        return True, tuple(features.brand_stuffing_matches)
 
     @staticmethod
     def _evaluate_social_engineering(

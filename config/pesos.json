@@ -73,6 +73,19 @@
       ]
     },
     {
+      "rule_id": "RN-06",
+      "name": "brand_stuffing_detected",
+      "condition": "brand_stuffing_detected",
+      "weight": 24,
+      "enabled": true,
+      "description": "Detecta dominios que incrustan o concatenan la marca con otros terminos del catalogo.",
+      "references": [
+        "RN-06",
+        "RF8",
+        "RNF27"
+      ]
+    },
+    {
       "rule_id": "RN-07",
       "name": "social_engineering_detected",
       "condition": "social_engineering_detected",
