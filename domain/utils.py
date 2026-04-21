@@ -35,6 +35,10 @@ def tokenize_text(value: str) -> list[str]:
     return [token for token in tokens if token]
 
 
+def collapse_text(value: str) -> str:
+    return "".join(tokenize_text(value))
+
+
 def extract_registrable_domain(domain: str, compound_tlds: set[str]) -> tuple[str, str]:
     clean_domain = domain.strip(".").lower()
     labels = [label for label in clean_domain.split(".") if label]

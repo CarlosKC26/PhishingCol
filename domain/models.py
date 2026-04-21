@@ -75,6 +75,7 @@ class FeatureSet:
     matched_related_keywords: list[str] = field(default_factory=list)
     social_engineering_terms: list[str] = field(default_factory=list)
     typosquatting_matches: list[str] = field(default_factory=list)
+    brand_stuffing_matches: list[str] = field(default_factory=list)
     suspicious_subdomain_tokens: list[str] = field(default_factory=list)
     content_brand_mentions: list[str] = field(default_factory=list)
     evidence: list[str] = field(default_factory=list)
@@ -101,6 +102,7 @@ class FeatureSet:
                 bool(self.matched_related_keywords),
                 bool(self.social_engineering_terms),
                 bool(self.typosquatting_matches),
+                bool(self.brand_stuffing_matches),
                 self.suspicious_tld,
                 self.anomalous_length,
                 self.deceptive_subdomain,
@@ -236,6 +238,9 @@ class AnalysisResult:
                     self.features.social_engineering_terms
                 ),
                 "typosquatting_matches": list(self.features.typosquatting_matches),
+                "brand_stuffing_matches": list(
+                    self.features.brand_stuffing_matches
+                ),
                 "suspicious_subdomain_tokens": list(
                     self.features.suspicious_subdomain_tokens
                 ),

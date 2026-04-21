@@ -41,3 +41,16 @@ def test_detects_deceptive_subdomains(
 
     assert features.deceptive_subdomain is True
     assert "bancolombia" in features.suspicious_subdomain_tokens
+
+
+def test_detects_embedded_brand_keywords_in_registrable_domain(
+    input_handler, feature_extractor, brand_catalog_service
+):
+    input_data = input_handler.prepare("https://hotelesdecameron.com")
+    catalog = brand_catalog_service.get_catalog()
+
+    features = feature_extractor.extract(input_data, catalog)
+
+    assert "decameron" in features.matched_brand_ids
+    assert "hoteles decameron" in features.matched_primary_keywords
+    assert any("Decameron" in item for item in features.brand_stuffing_matches)

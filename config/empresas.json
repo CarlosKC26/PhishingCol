@@ -594,6 +594,46 @@
         "servientregga",
         "serventrega"
       ]
-    }
+    },
+    {
+  "brand_id": "decameron",
+  "display_name": "Decameron",
+  "sector": "turismo",
+  "official_domains": [
+    "decameron.com"
+  ],
+  "official_tlds": [
+    "com"
+  ],
+  "primary_keywords": [
+    "decameron",
+    "hoteles decameron",
+    "decameron all inclusive",
+    "decameron resorts"
+  ],
+  "secondary_keywords": [
+    "hotel",
+    "resort",
+    "todo incluido",
+    "vacaciones",
+    "reservas",
+    "paquetes turísticos"
+  ],
+  "related_keywords": [
+    "turismo",
+    "playa",
+    "viajes",
+    "alojamiento",
+    "caribe",
+    "experiencias",
+    "entretenimiento",
+    "gastronomía"
+  ],
+  "typosquatting_variants": [
+    "decameronn",
+    "decamer0n",
+    "decameran"
+  ]
+}
   ]
 }

@@ -57,6 +57,48 @@ def test_pipeline_keywords_case_reaches_medium_risk(analysis_factory, input_hand
     assert result.score >= 40
 
 
+def test_pipeline_embedded_brand_domain_reaches_medium_risk(
+    analysis_factory, input_handler
+):
+    services = analysis_factory()
+    input_data = input_handler.prepare(
+        "https://hotelesdecameron.com",
+        enable_content_analysis=False,
+    )
+
+    result = services["analysis_service"].analyze(input_data)
+    rule_ids = {rule.rule_id for rule in result.score_breakdown.matched_rules}
+
+    assert result.risk_level == RiskLevel.MEDIUM
+    assert {"RN-05", "RN-06"} <= rule_ids
+    assert result.score >= 40
+
+
+def test_pipeline_embedded_brand_domain_with_html_increases_score(
+    analysis_factory, input_handler
+):
+    services = analysis_factory(
+        lambda url, timeout: StaticContentSnapshot(
+            requested_url=url,
+            final_url=url,
+            status_code=200,
+            title="Hoteles Decameron",
+            text_excerpt="Ofertas y reservas de Decameron all inclusive.",
+        )
+    )
+    input_data = input_handler.prepare(
+        "https://hotelesdecameron.com",
+        enable_content_analysis=True,
+    )
+
+    result = services["analysis_service"].analyze(input_data)
+    rule_ids = {rule.rule_id for rule in result.score_breakdown.matched_rules}
+
+    assert result.risk_level in {RiskLevel.MEDIUM, RiskLevel.HIGH}
+    assert {"RN-05", "RN-06", "RN-11"} <= rule_ids
+    assert result.score >= 50
+
+
 def test_pipeline_long_domain_is_flagged(analysis_factory, input_handler):
     services = analysis_factory()
     input_data = input_handler.prepare(
