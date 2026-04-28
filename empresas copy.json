@@ -1,0 +1,149 @@
+{
+  "nihlo": {
+    "urls_oficiales": ["nihlo.com.co","nihlo.co"],
+    "palabras_clave": ["nihlo", "corbeta", "alkosto"],
+    "palabras_secundarias": ["cosmeticos","cuidado","belleza"],
+    "palabras_relacionadas": ["hogar", "electrodomésticos", "marca", "tienda"],
+    "expresion_regular": "(?=.*([nmh]+[i1!l]*[hnm]+[l1i!]+[o0d]*))"
+  },
+  "segurosmundial": {
+    "urls_oficiales": ["segurosmundial.com.co"],
+    "palabras_clave": ["mundial", "seguro", "compañia"],
+    "palabras_secundarias": ["aseguradora", "colombia", "soat"],
+    "palabras_relacionadas": ["riesgo","cobertura"],
+    "expresion_regular": "(?=.*([mnh]+[u]*[nmh]+[d]+[i1!l]*[a4]*[l1i!]+))(?=.*(([sc5z]+[e3]*[g]+[u}]*[r14]+[o0d]*[sc5z]*)|([sc5z]+[o0d]*[a4]*[t]+)|([p]+[a4]*[g]+[o0d]*[sc5z]*))).*"
+  },
+  "soatmundial": {
+    "urls_oficiales": ["soatmundial.com.co"],
+    "palabras_clave": ["soat", "mundial", "seguro"],
+    "palabras_secundarias": ["vehiculo", "aseguradora", "colombia"],
+    "palabras_relacionadas": ["poliza", "cobertura", "riesgo"],
+    "expresion_regular": "(?=.*([mnh]+[u]*[nmh]+[d]+[i1!l]*[a4]*[l1i!]+))(?=.*(([sc5z]+[e3]*[g]+[u}]*[r14]+[o0d]*[sc5z]*)|([sc5z]+[o0d]*[a4]*[t]+)|([p]+[a4]*[g]+[o0d]*[sc5z]*))).*"
+  },
+  "gnbcolombia": {
+    "urls_oficiales": ["gnbsudameris.com.co"],
+    "palabras_clave": ["gnb", "sudameris", "banco"],
+    "palabras_secundarias": ["colombia", "finanzas", "ahorro", "tarjeta", "entidad", "financiera", "cuenta", "transferencia", "prestamo", "inversion"],
+    "palabras_relacionadas": ["servicio", "cajero", "retiro"],
+    "expresion_regular": "((?=.*(([g6]+[nmh]+[b68vuw]+)|([sc5z]+[uw]*[do]+[a4]*[mnh]+[e3]*[r14]+[i1]*[sc5z]+)))(?=.*(([b68vuw]+[a4]+[nmh]+[cks]+[a4]*[o0d]*[sc5z]*)|([sc5z]+[uw]*[do]+[a4]*[mnh]+[e3]*[r14]+[i1]*[sc5z]+))).*)|[g][n][b]"
+  },
+  "gnbperu": {
+    "urls_oficiales": ["bancognb.com.pe"],
+    "palabras_clave": ["gnb", "sudameris", "banco"],
+    "palabras_secundarias": ["peru", "finanzas", "ahorro", "tarjeta", "entidad", "financiera", "cuenta", "transferencia", "prestamo", "inversion"],
+    "palabras_relacionadas": ["servicio", "cajero", "retiro"],
+    "expresion_regular": "((?=.*(([g6]+[nmh]+[b68vuw]+)|([sc5z]+[uw]*[do]+[a4]*[mnh]+[e3]*[r14]+[i1]*[sc5z]+)))(?=.*(([b68vuw]+[a4]+[nmh]+[cks]+[a4]*[o0d]*[sc5z]*)|([sc5z]+[uw]*[do]+[a4]*[mnh]+[e3]*[r14]+[i1]*[sc5z]+))).*)|[g][n][b]"
+  },
+  "gnbparaguay": {
+    "urls_oficiales": ["bancognb.com.py"],
+    "palabras_clave": ["gnb", "sudameris", "banco"],
+    "palabras_secundarias": ["paraguay",  "finanzas", "ahorro", "tarjeta", "entidad", "financiera", "cuenta", "transferencia", "prestamo", "inversion"],
+    "palabras_relacionadas": ["servicio", "cajero", "retiro"],
+    "expresion_regular": "((?=.*(([g6]+[nmh]+[b68vuw]+)|([sc5z]+[uw]*[do]+[a4]*[mnh]+[e3]*[r14]+[i1]*[sc5z]+)))(?=.*(([b68vuw]+[a4]+[nmh]+[cks]+[a4]*[o0d]*[sc5z]*)|([sc5z]+[uw]*[do]+[a4]*[mnh]+[e3]*[r14]+[i1]*[sc5z]+))).*)|[g][n][b]"
+  },
+  "servibanca": {
+    "urls_oficiales": ["servibanca.com.co"],
+    "palabras_clave": ["servibanca", "cajero", "retiro"],
+    "palabras_secundarias": ["banco", "tarjeta", "gnb", "servicio"],
+    "palabras_relacionadas": ["colombia","finanzas", "ahorro", "entidad", "financiera", "cuenta", "transferencia", "prestamo", "inversion"],
+    "expresion_regular": "(?=.*([sc5z]+[e3]*[r14]+[vuwb86]+[i1!l]*[cks]*[i1!l]*[o0d]*[sc5z]*))(?=.*([b68vuw]+[a4]+[nmh]+[cks]+[a4]*[o0d]*[sc5z]*))"
+  },
+  "decameron": {
+    "urls_oficiales": ["decameron.com"],
+    "palabras_clave": ["decameron", "hotel", "vacaciones", "multivacaciones"],
+    "palabras_secundarias": ["turismo", "playa", "resort", "viajes"],
+    "palabras_relacionadas": ["colombia", "caribe", "servicio", "reservas"],
+    "expresion_regular": "(?=.*([d]+[e3]*[c]+[a4]*[mnh]+[e3]*[r14]+[o0d]*[n]+))"
+  },
+  "corbeta": {
+    "urls_oficiales": ["corbeta.com.co"],
+    "palabras_clave": ["corbeta", "alkosto", "nihlo"],
+    "palabras_secundarias": ["cosmeticos", "cuidado", "belleza"],
+    "palabras_relacionadas": ["hogar", "electrodomésticos", "marca", "tienda"],
+    "expresion_regular": "(?=.*([c]+[o0d]*[r14]+[b]+[e3]*[t]+[a4]+))"
+  },
+  "alkosto": {
+    "urls_oficiales": ["alkosto.com.co"],
+    "palabras_clave": ["alkosto", "tienda", "electrodomésticos","hiperahorro"],
+    "palabras_secundarias": ["hogar", "tecnología", "ofertas","ahorro"],
+    "palabras_relacionadas": ["colombia", "marca", "servicio", "compras"],
+    "expresion_regular": "(?=.*([a4]+[l]+[k]+[o0d]*[s]+[t]+[o0d]*))"
+  },
+  "aktmotos": {
+    "urls_oficiales": ["aktmotos.com"],
+    "palabras_clave": ["akt", "motos", "vehículo"],
+    "palabras_secundarias": ["motocicleta", "colombia", "concesionario","medellin","cedritos","cali", "royalenfieldmedellin","royalenfieldcedritos","royalenfieldcali"],
+    "palabras_relacionadas": ["servicio", "repuestos", "accesorios","royalenfieldco.com"],
+    "expresion_regular": "(?=.*([a4]+[k]+[t]+))(?=.*([mnh]+[o0d]*[t]+[o0d]*[sc]*[i1!l]*[c]+[l]+[e3]*[t]+[a4]+))"
+  },
+  "ktronix":{
+    "urls_oficiales": ["ktronix.com"],
+    "palabras_clave": ["ktronix", "tecnología", "electrónica","pasion","tecno"],
+    "palabras_secundarias": ["colombia", "tienda", "ofertas"],
+    "palabras_relacionadas": ["servicio", "marca", "compras","oficial"],
+    "expresion_regular": "(?=.*([k]+[t]+[r]+[o0d]*[n]+[i1!l]*[x]+))"
+  },
+  "kalley": {
+    "urls_oficiales": ["kalley.com.co"],
+    "palabras_clave": ["kalley", "electrodomésticos", "tecnología"],
+    "palabras_secundarias": ["colombia", "marca", "hogar"],
+    "palabras_relacionadas": ["servicio", "compras", "ofertas"],
+    "expresion_regular": "(?=.*([k]+[a4]+[l]+[l]+[e3]*[y]+))"
+  },
+  "colcomercio": {
+    "urls_oficiales": ["colcomercio.com.co"],
+    "palabras_clave": ["colcomercio", "tienda", "compras"],
+    "palabras_secundarias": ["colombia", "ofertas", "marca"],
+    "palabras_relacionadas": ["servicio", "hogar", "electrodomésticos"],
+    "expresion_regular": "(?=.*([c]+[o0d]*[l]+[c]+[o0d]*[mnh]+[e3]*[r14]+[c]+[i1!l]*[o0d]*))"
+  },
+  "serviciotcl": {
+    "urls_oficiales": ["serviciotcl.com.co"],
+    "palabras_clave": ["tcl", "tecnología", "electrónica"],
+    "palabras_secundarias": ["colombia", "marca", "servicio"],
+    "palabras_relacionadas": ["televisión", "celular", "audio"],
+    "expresion_regular": "(?=.*([t]+[c]+[l]+))(?=.*([s]+[e3]*[r14]+[vuwb86]+[i1!l]*[c]+[i1!l]*[o0d]*))"
+  },
+  "corautosandino": {
+    "urls_oficiales": ["corautosandino.com"],
+    "palabras_clave": ["corautos", "andino", "vehículo"],
+    "palabras_secundarias": ["colombia", "concesionario", "repuestos", "automovil", "foton", "dongfeng", "ford"],
+    "palabras_relacionadas": ["servicio", "accesorios", "mantenimiento"],
+    "expresion_regular": "(?=.*([c]+[o0d]*[r14]+[a4]*[u]*[t]+[o0d]*[s]+))(?=.*([a4]*[n]+[d]+[i1!l]*[n]+[o0d]*))"
+  },
+  "glokalstore": {
+    "urls_oficiales": ["glokalstore.com"],
+    "palabras_clave": ["glokalstore", "tienda", "compras"],
+    "palabras_secundarias": ["colombia", "ofertas", "marca"],
+    "palabras_relacionadas": ["servicio", "hogar", "electrodomésticos"],
+    "expresion_regular": "(?=.*([g6]+[l]+[o0d]*[k]+[a4]*[l]+))(?=.*([s]+[t]+[o0d]*[r14]+[e3]*))"
+  },
+  "multivacaciones": {
+    "urls_oficiales": ["multivacaciones.com"],
+    "palabras_clave": ["multivacaciones", "hotel", "vacaciones", "decameron"],
+    "palabras_secundarias": ["turismo", "playa", "resort", "viajes"],
+    "palabras_relacionadas": ["colombia", "caribe", "servicio", "reservas"],
+    "expresion_regular": "(?=.*([mnh]+[u}]*[l]+[t]+[i1!l]*))(?=.*([vuwb86]+[a4]*[cs5]+[a4]*[cs5]+[i1!l]*[o0d]*[n]+[e3]*[s]*))"
+  },
+  "alkomprar": {
+    "urls_oficiales": ["alkomprar.com","niucolombia.com"],
+    "palabras_clave": ["alkomprar", "tienda", "electrodomésticos", "niu"],
+    "palabras_secundarias": ["colombia", "tecnología", "ofertas", "alkomoprar", "alkosto"],
+    "palabras_relacionadas": ["marca", "servicio", "compras", "oficial","hiperahorro"],
+    "expresion_regular": "(?=.*([a4]*[l]+[k]+[o0d]*[mnh]+[p]+[r14]+[a4]*[r]+))"
+  },
+  "deloitte": {
+    "urls_oficiales": ["deloitte.com","deloitte.com.mx"],
+    "palabras_clave": ["deloitte", "consultoría", "servicios"],
+    "palabras_secundarias": ["colombia", "finanzas", "auditoría", "mexico", "latam"],
+    "palabras_relacionadas": ["empresa", "asesoría", "negocios"],
+    "expresion_regular": "(?=.*([d]+[e3]*[l]+[o0d]*[i1!l]*[t]+[t]+[e3]*))"
+  },
+  "it-ss": {
+    "urls_oficiales": ["it-ss.co"],
+    "palabras_clave": ["itss", "tecnologia", "cybersecurity", "cyber", "deloitte"],
+    "palabras_secundarias": ["colombia", "informatica", "consultoria", "servicios"],
+    "palabras_relacionadas": ["empresa", "software", "soluciones"],
+    "expresion_regular": "(?=.*([i1!l]+[t]+[-]*[s]+[s]+))"
+  }
+}
